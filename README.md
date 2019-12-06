@@ -4,7 +4,7 @@
   <a href="https://github.com/foxundermoon/setup-qshell"><img alt="GitHub Actions status" src="https://github.com/foxundermoon/setup-qshell/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
-添加七牛 qshell到PATH下面
+添加七牛 [qshell](https://github.com/qiniu/qshell)到PATH下面
 
 
 # Usage
@@ -25,25 +25,6 @@ jobs:
         qshell-version: '2.4.0'
     - name: test qshell
       run: qshell version
-```
-
-Matrix Testing:
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-16.04
-    strategy:
-      matrix:
-        node: [ '10', '8' ]
-    name: Node ${{ matrix.node }} sample
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - run: npm install
-      - run: npm test
 ```
 
 # License

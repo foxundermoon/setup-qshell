@@ -75,7 +75,9 @@ async function acquireQshell(version: string): Promise<string> {
   //
   // Extract
   //
-  let extPath: string = await tc.extractZip(downloadPath);
+  let extPath: string = await tc.extractZip(`${downloadPath}/${urlFileName}`);
+
+  console.log(`extPath: ${extPath}`);
   //
   // cache qshell
   //

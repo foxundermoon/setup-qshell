@@ -75,7 +75,10 @@ async function acquireQshell(version: string): Promise<string> {
   //
   // Extract
   //
-  let extPath: string = await tc.extractZip(`${downloadPath}/${urlFileName}`);
+  let zipPath = path.join(downloadPath, urlFileName);
+
+  console.log(`zipPath: ${zipPath}`);
+  let extPath: string = await tc.extractZip(zipPath);
 
   console.log(`extPath: ${extPath}`);
   //

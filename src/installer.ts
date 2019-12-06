@@ -34,14 +34,16 @@ export async function getQshell(version: string) {
     toolPath = await acquireQshell(version);
   }
 
+  console.log(`toolPath: ${toolPath}`);
+
   //
   // a tool installer initimately knows details about the layout of that tool
   // for example, node binary is in the bin folder after the extract on Mac/Linux.
   // layouts could change by version, by platform etc... but that's the tool installers job
   //
-  if (osPlat != 'win32') {
-    toolPath = path.join(toolPath, 'bin');
-  }
+  // if (osPlat != 'win32') {
+  //   toolPath = path.join(toolPath, 'bin');
+  // }
 
   //
   // prepend the tools path. instructs the agent to prepend for future tasks
@@ -53,9 +55,9 @@ async function acquireQshell(version: string): Promise<string> {
   // Download - a tool installer intimately knows how to get the tool (and construct urls)
   //  http://devtools.qiniu.com/qshell-linux-x86-v2.4.0.zip
   //  https://devtools.qiniu.com/qshell-windows-x64-v2.4.0.exe.zip
-  let urlFileName: string = `qshell-${osPlat}-${osArch}-v${version}${
-    osPlat == 'win32' ? '.exe' : ''
-  }.zip`;
+  let urlFileName: string = `qshell-${
+    osPlat == 'win32' ? 'windows' : osPlat
+  }-${osArch}-v${version}${osPlat == 'win32' ? '.exe' : ''}.zip`;
 
   let fileName: string = `qshell_${
     osPlat == 'win32' ? 'windows' : osPlat
@@ -77,5 +79,5 @@ async function acquireQshell(version: string): Promise<string> {
   let oldPath = path.join(extPath, fileName);
   let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
   // await fse.rename(oldPath, newPath);
-  return await tc.cacheDir(oldPath, newPath, 'qshell', version);
+  return await tc.cacheFile(oldPath, newPath, 'qshell', version);
 }

@@ -64,10 +64,13 @@ async function acquireQshell(version: string): Promise<string> {
   }${osArch}${osPlat == 'win32' ? '.exe' : ''}`;
 
   let downloadUrl = `http://devtools.qiniu.com/${urlFileName}`;
+  console.log(`downloadUrl: ${downloadUrl}`);
 
   let downloadPath: string;
 
   downloadPath = await tc.downloadTool(downloadUrl);
+
+  console.log(`downloadPath: ${downloadPath}`);
 
   //
   // Extract
@@ -79,5 +82,7 @@ async function acquireQshell(version: string): Promise<string> {
   let oldPath = path.join(extPath, fileName);
   let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
   // await fse.rename(oldPath, newPath);
-  return await tc.cacheFile(oldPath, newPath, 'qshell', version);
+  const cacheRst = await tc.cacheFile(oldPath, newPath, 'qshell', version);
+  console.log(`cacheRst: ${cacheRst}`);
+  return cacheRst;
 }

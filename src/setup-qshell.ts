@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import * as installer from './installer';
-import * as auth from './authutil';
 import * as path from 'path';
 
 async function run() {
@@ -10,18 +9,10 @@ async function run() {
     // If not supplied then task is still used to setup proxy, auth, etc...
     //
     let version = core.getInput('version');
-    if (!version) {
-      version = core.getInput('node-version');
-    }
+
     if (version) {
       // TODO: installer doesn't support proxy
-      await installer.getNode(version);
-    }
-
-    const registryUrl: string = core.getInput('registry-url');
-    const alwaysAuth: string = core.getInput('always-auth');
-    if (registryUrl) {
-      auth.configAuthentication(registryUrl, alwaysAuth);
+      await installer.getQshell(version);
     }
 
     // TODO: setup proxy from runner proxy config

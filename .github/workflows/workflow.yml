@@ -1,0 +1,19 @@
+name: Main workflow
+on: [push]
+jobs:
+  run:
+    name: Run
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Set qshell 2.4.0
+      uses: foxundermoon/setup-qshell@master
+      with:
+        version: '2.4.0'
+
+    - name: test qshell
+      run: qshell version

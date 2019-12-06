@@ -5,6 +5,7 @@ import * as io from '@actions/io';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
 import * as path from 'path';
+import {promises as fse} from 'fs';
 
 let osPlat: string = os.platform();
 let osArch: string = os.arch();
@@ -78,6 +79,9 @@ async function acquireQshell(version: string): Promise<string> {
   let zipPath = path.join(downloadPath, urlFileName);
 
   console.log(`zipPath: ${zipPath}`);
+  const items = await fse.readdir(downloadPath);
+
+  console.log(`downloadPath files: ${items.join('\n')}`);
   let extPath: string = await tc.extractZip(zipPath);
 
   console.log(`extPath: ${extPath}`);

@@ -61,7 +61,7 @@ async function acquireQshell(version: string): Promise<string> {
     osPlat == 'win32' ? 'windows' : osPlat
   }${osArch}${osPlat == 'win32' ? '.exe' : ''}`;
 
-  let downloadUrl = `https://devtools.qiniu.com/${urlFileName}`;
+  let downloadUrl = `http://devtools.qiniu.com/${urlFileName}`;
 
   let downloadPath: string;
 

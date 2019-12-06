@@ -1,27 +1,30 @@
 # setup-node
 
 <p align="left">
-  <a href="https://github.com/actions/setup-node"><img alt="GitHub Actions status" src="https://github.com/actions/setup-node/workflows/Main%20workflow/badge.svg"></a>
+  <a href="https://github.com/foxundermoon/setup-qshell"><img alt="GitHub Actions status" src="https://github.com/foxundermoon/setup-qshell/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
-This action sets by node environment for use in actions by:
+添加七牛 qshell到PATH下面
 
-- optionally downloading and caching a version of node - npm by version spec and add to PATH
-- registering problem matchers for error output 
 
 # Usage
 
-See [action.yml](action.yml)
 
-Basic:
 ```yaml
-steps:
-- uses: actions/checkout@v1
-- uses: actions/setup-node@v1
-  with:
-    node-version: '10.x'
-- run: npm install
-- run: npm test
+name: qhsell demo
+on: [push]
+jobs:
+  run:
+    name: Run qshell
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup qshell
+      uses: foxundermoon/setup-qshell@v1
+      with:
+        qshell-version: '2.4.0'
+    - name: test qshell
+      run: qshell version
 ```
 
 Matrix Testing:
@@ -42,64 +45,6 @@ jobs:
       - run: npm install
       - run: npm test
 ```
-
-Publish to npmjs and GPR with npm:
-```yaml
-steps:
-- uses: actions/checkout@v1
-- uses: actions/setup-node@v1
-  with:
-    node-version: '10.x'
-    registry-url: 'https://registry.npmjs.org'
-- run: npm install
-- run: npm publish
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-- uses: actions/setup-node@v1
-  with:
-    registry-url: 'https://npm.pkg.github.com'
-- run: npm publish
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Publish to npmjs and GPR with yarn:
-```yaml
-steps:
-- uses: actions/checkout@v1
-- uses: actions/setup-node@v1
-  with:
-    node-version: '10.x'
-    registry-url: <registry url>
-- run: yarn install
-- run: yarn publish
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-- uses: actions/setup-node@v1
-  with:
-    registry-url: 'https://npm.pkg.github.com'
-- run: yarn publish
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-Use private packages:
-```yaml
-steps:
-- uses: actions/checkout@v1
-- uses: actions/setup-node@v1
-  with:
-    node-version: '10.x'
-    registry-url: 'https://registry.npmjs.org'
-# Skip post-install scripts here, as a malicious
-# script could steal NODE_AUTH_TOKEN.
-- run: npm install --ignore-scripts
-  env:
-    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-# `npm rebuild` will run all those post-install scripts for us.
-- run: npm rebuild && npm run prepare --if-present
-```
-
 
 # License
 

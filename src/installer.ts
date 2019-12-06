@@ -89,19 +89,19 @@ async function acquireQshell(version: string): Promise<string> {
   // cache qshell
   //
   let oldPath = path.join(extPath, fileName);
-  console.log(`oldPath: ${oldPath}`);
+  // console.log(`oldPath: ${oldPath}`);
   // let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
   // await fse.rename(oldPath, newPath);
 
   const unzipFiles = await fse.readdir(extPath);
 
-  console.log(`unzipFiles: ${unzipFiles.join('\n')}`);
+  // console.log(`unzipFiles: ${unzipFiles.join('\n')}`);
   const cacheRst = await tc.cacheFile(
     oldPath,
     `qshell${osPlat == 'win32' ? '.exe' : ''}`,
     'qshell',
     version
   );
-  console.log(`cacheRst: ${cacheRst}`);
+  // console.log(`cacheRst: ${cacheRst}`);
   return cacheRst;
 }

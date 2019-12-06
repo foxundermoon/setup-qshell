@@ -5,7 +5,7 @@
   "description": "setup node action",
   "main": "lib/setup-qshell.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm i && tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "test": "jest"

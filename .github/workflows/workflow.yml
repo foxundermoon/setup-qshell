@@ -3,10 +3,11 @@ on: [push]
 jobs:
   run:
     name: Run
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: [ubuntu-latest, windows-latest]
+    # runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     operating-system: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@master
     - name: Setup tmate session

@@ -10,8 +10,8 @@ jobs:
         operating-system: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@master
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v1
+    # - name: Setup tmate session
+    #   uses: mxschmitt/action-tmate@v1
     - name: Set qshell 2.4.0
       uses: foxundermoon/setup-qshell@master
       with:

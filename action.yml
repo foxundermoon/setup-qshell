@@ -8,4 +8,4 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'lib/setup-shell.js'
+  main: 'lib/setup-qshell.js'

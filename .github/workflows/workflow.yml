@@ -12,10 +12,10 @@ jobs:
     - uses: actions/checkout@master
     # - name: Setup tmate session
     #   uses: mxschmitt/action-tmate@v1
-    - name: Set qshell 2.4.0
+    - name: Set qshell 2.6.2
       uses: foxundermoon/setup-qshell@master
       with:
-        qshell-version: '2.4.0'
+        qshell-version: '2.6.2'
 
     - name: test qshell
       run: qshell version

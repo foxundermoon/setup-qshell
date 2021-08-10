@@ -1,14 +1,11 @@
 // Load tempDirectory before it gets wiped by tool-cache
-let tempDirectory = process.env['RUNNER_TEMPDIRECTORY'] || '';
 import * as core from '@actions/core';
-import * as io from '@actions/io';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
 import * as path from 'path';
-import {promises as fse} from 'fs';
+// import {promises as fse} from 'fs';
 
-let osPlat: string = os.platform();
-let osArch: string = os.arch();
+let tempDirectory = process.env['RUNNER_TEMPDIRECTORY'] || '';
 
 if (!tempDirectory) {
   let baseLocation;
@@ -54,22 +51,34 @@ export async function getQshell(version: string) {
 async function acquireQshell(version: string): Promise<string> {
   //
   // Download - a tool installer intimately knows how to get the tool (and construct urls)
-  //  http://devtools.qiniu.com/qshell-linux-x86-v2.4.0.zip
-  //  https://devtools.qiniu.com/qshell-windows-x64-v2.4.0.exe.zip
-  let urlFileName: string = `qshell-${
-    osPlat == 'win32' ? 'windows' : osPlat
-  }-${osArch}-v${version}${osPlat == 'win32' ? '.exe' : ''}.zip`;
 
-  let fileName: string = `qshell-${
-    osPlat == 'win32' ? 'windows' : osPlat
-  }-${osArch}-v${version}${osPlat == 'win32' ? '.exe' : ''}`;
+  // https://github.com/qiniu/qshell/releases/download/v2.6.2/qshell-v2.6.2-darwin-amd64.tar.gz
+  // https://github.com/qiniu/qshell/releases/download/v2.6.2/qshell-v2.6.2-linux-386.tar.gz
 
-  let downloadUrl = `http://devtools.qiniu.com/${urlFileName}`;
-  // console.log(`downloadUrl: ${downloadUrl}`);
+  let arch;
 
-  let downloadPath: string;
+  switch (os.arch()) {
+    case 'x64':
+      arch = 'amd64';
+      break;
+    case 'x32':
+      arch = '386';
+      break;
 
-  downloadPath = await tc.downloadTool(downloadUrl);
+    default:
+      arch = os.arch();
+      break;
+  }
+
+  const platform = os.platform() === 'win32' ? 'windows' : os.platform();
+
+  const fileName = `qshell-${version}-${platform}-${arch}.tar.gz`;
+
+  const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
+
+  const downloadUrl = `https://github.com/qiniu/qshell/releases/download/${version}/${fileName}`;
+
+  const downloadPath: string = await tc.downloadTool(downloadUrl);
 
   // console.log(`downloadPath: ${downloadPath}`);
 
@@ -82,23 +91,23 @@ async function acquireQshell(version: string): Promise<string> {
   // const items = await fse.readdir(downloadPath);
 
   // console.log(`downloadPath files: ${items.join('\n')}`);
-  let extPath: string = await tc.extractZip(downloadPath);
+  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxvf');
 
   // console.log(`extPath: ${extPath}`);
   //
   // cache qshell
   //
-  let oldPath = path.join(extPath, fileName);
+  const oldPath = path.join(extPath, extFileName);
   // console.log(`oldPath: ${oldPath}`);
   // let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
   // await fse.rename(oldPath, newPath);
 
-  const unzipFiles = await fse.readdir(extPath);
+  // const unzipFiles = await fse.readdir(extPath);
 
   // console.log(`unzipFiles: ${unzipFiles.join('\n')}`);
   const cacheRst = await tc.cacheFile(
     oldPath,
-    `qshell${osPlat == 'win32' ? '.exe' : ''}`,
+    `qshell${arch === 'win32' ? '.exe' : ''}`,
     'qshell',
     version
   );

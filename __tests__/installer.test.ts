@@ -4,7 +4,6 @@ import os = require('os');
 import path = require('path');
 import * as installer from '../src/installer';
 
-
 const toolDir = path.join(
   __dirname,
   'runner',
@@ -76,8 +75,6 @@ describe('installer tests', () => {
     }
     expect(thrown).toBe(true);
   });
-
-
 
   it('Uses version of node installed in cache', async () => {
     const nodeDir: string = path.join(toolDir, 'qshell', 'v2.6.2', os.arch());

@@ -3,8 +3,8 @@ description: 'Setup a qshell  and add it to the PATH'
 author: 'foxundermoon'
 inputs:
   qshell-version:
-    description: 'version to use.  Examples: 2.4.0'
-    default: '2.4.0'
+    description: 'version to use.  Examples: 2.6.2'
+    default: '2.6.2'
 
 runs:
   using: 'node12'

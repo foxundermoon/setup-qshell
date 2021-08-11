@@ -90,7 +90,7 @@ async function acquireQshell(version) {
             break;
     }
     const platform = os.platform() === 'win32' ? 'windows' : os.platform();
-    const fileName = `qshell-v${version}-${platform}-${arch}.${os.platform() === 'win32' ? '.zip' : 'tar.gz'}`;
+    const fileName = `qshell-v${version}-${platform}-${arch}.${os.platform() === 'win32' ? 'zip' : 'tar.gz'}`;
     const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
     const downloadUrl = `https://github.com/qiniu/qshell/releases/download/v${version}/${fileName}`;
     const downloadPath = await tc.downloadTool(downloadUrl);

@@ -73,7 +73,7 @@ async function acquireQshell(version: string): Promise<string> {
   const platform = os.platform() === 'win32' ? 'windows' : os.platform();
 
   const fileName = `qshell-v${version}-${platform}-${arch}.${
-    os.platform() === 'win32' ? '.zip' : 'tar.gz'
+    os.platform() === 'win32' ? 'zip' : 'tar.gz'
   }`;
 
   const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;

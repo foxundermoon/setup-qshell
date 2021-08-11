@@ -72,11 +72,11 @@ async function acquireQshell(version: string): Promise<string> {
 
   const platform = os.platform() === 'win32' ? 'windows' : os.platform();
 
-  const fileName = `qshell-${version}-${platform}-${arch}.tar.gz`;
+  const fileName = `qshell-v${version}-${platform}-${arch}.tar.gz`;
 
   const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
 
-  const downloadUrl = `https://github.com/qiniu/qshell/releases/download/${version}/${fileName}`;
+  const downloadUrl = `https://github.com/qiniu/qshell/releases/download/v${version}/${fileName}`;
 
   const downloadPath: string = await tc.downloadTool(downloadUrl);
 

@@ -37,8 +37,8 @@ describe('installer tests', () => {
   }, 100000);
 
   it('Acquires version of qshell if no matching version is installed', async () => {
-    await installer.getQshell('v2.6.2');
-    const qshellDir = path.join(toolDir, 'qshell', 'v2.6.2', os.arch());
+    await installer.getQshell('2.6.2');
+    const qshellDir = path.join(toolDir, 'qshell', '2.6.2', os.arch());
 
     expect(fs.existsSync(`${qshellDir}.complete`)).toBe(true);
     if (IS_WINDOWS) {
@@ -50,16 +50,16 @@ describe('installer tests', () => {
 
   if (IS_WINDOWS) {
     it('Falls back to backup location if first one doesnt contain correct version', async () => {
-      await installer.getQshell('v2.6.2');
-      const nodeDir = path.join(toolDir, 'qshell', 'v2.6.2', os.arch());
+      await installer.getQshell('2.6.2');
+      const nodeDir = path.join(toolDir, 'qshell', '2.6.2', os.arch());
 
       expect(fs.existsSync(`${nodeDir}.complete`)).toBe(true);
       expect(fs.existsSync(path.join(nodeDir, 'qshell.exe'))).toBe(true);
     }, 100000);
 
     it('Falls back to third location if second one doesnt contain correct version', async () => {
-      await installer.getQshell('v2.6.2');
-      const qshellDir = path.join(toolDir, 'qshell', 'v2.6.2', os.arch());
+      await installer.getQshell('2.6.2');
+      const qshellDir = path.join(toolDir, 'qshell', '2.6.2', os.arch());
 
       expect(fs.existsSync(`${qshellDir}.complete`)).toBe(true);
       expect(fs.existsSync(path.join(qshellDir, 'qshell.exe'))).toBe(true);
@@ -77,11 +77,11 @@ describe('installer tests', () => {
   });
 
   it('Uses version of node installed in cache', async () => {
-    const nodeDir: string = path.join(toolDir, 'qshell', 'v2.6.2', os.arch());
+    const nodeDir: string = path.join(toolDir, 'qshell', '2.6.2', os.arch());
     await io.mkdirP(nodeDir);
     fs.writeFileSync(`${nodeDir}.complete`, 'hello');
     // This will throw if it doesn't find it in the cache (because no such version exists)
-    await installer.getQshell('v2.6.2');
+    await installer.getQshell('2.6.2');
     return;
   });
 });

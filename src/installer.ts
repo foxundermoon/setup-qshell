@@ -72,7 +72,9 @@ async function acquireQshell(version: string): Promise<string> {
 
   const platform = os.platform() === 'win32' ? 'windows' : os.platform();
 
-  const fileName = `qshell-v${version}-${platform}-${arch}.tar.gz`;
+  const fileName = `qshell-v${version}-${platform}-${arch}.${
+    os.platform() === 'win32' ? '.zip' : 'tar.gz'
+  }`;
 
   const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
 
@@ -81,7 +83,10 @@ async function acquireQshell(version: string): Promise<string> {
   const downloadPath: string = await tc.downloadTool(downloadUrl);
 
   // Extract
-  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxv');
+  const extPath: string =
+    os.platform() === 'win32'
+      ? await tc.extractZip(downloadPath)
+      : await tc.extractTar(downloadPath, undefined, 'zxv');
   console.log(`extPath: ${extPath}`);
 
   const items = await fse.readdir(extPath);

@@ -90,12 +90,14 @@ async function acquireQshell(version) {
             break;
     }
     const platform = os.platform() === 'win32' ? 'windows' : os.platform();
-    const fileName = `qshell-v${version}-${platform}-${arch}.tar.gz`;
+    const fileName = `qshell-v${version}-${platform}-${arch}.${os.platform() === 'win32' ? '.zip' : 'tar.gz'}`;
     const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
     const downloadUrl = `https://github.com/qiniu/qshell/releases/download/v${version}/${fileName}`;
     const downloadPath = await tc.downloadTool(downloadUrl);
     // Extract
-    const extPath = await tc.extractTar(downloadPath, undefined, 'zxv');
+    const extPath = os.platform() === 'win32'
+        ? await tc.extractZip(downloadPath)
+        : await tc.extractTar(downloadPath, undefined, 'zxv');
     console.log(`extPath: ${extPath}`);
     const items = await fs_1.promises.readdir(extPath);
     console.log(`ext files: ${items.join('\n')}`);

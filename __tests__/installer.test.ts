@@ -36,17 +36,17 @@ describe('installer tests', () => {
     await io.rmRF(tempDir);
   }, 100000);
 
-  it('Acquires version of qshell if no matching version is installed', async () => {
-    await installer.getQshell('2.6.2');
-    const qshellDir = path.join(toolDir, 'qshell', '2.6.2', os.arch());
+  // it('Acquires version of qshell if no matching version is installed', async () => {
+  //   await installer.getQshell('2.6.2');
+  //   const qshellDir = path.join(toolDir, 'qshell', '2.6.2', os.arch());
 
-    expect(fs.existsSync(`${qshellDir}.complete`)).toBe(true);
-    if (IS_WINDOWS) {
-      expect(fs.existsSync(path.join(qshellDir, 'qshell.exe'))).toBe(true);
-    } else {
-      expect(fs.existsSync(path.join(qshellDir, 'bin', 'qshell'))).toBe(true);
-    }
-  }, 100000);
+  //   expect(fs.existsSync(`${qshellDir}.complete`)).toBe(true);
+  //   if (IS_WINDOWS) {
+  //     expect(fs.existsSync(path.join(qshellDir, 'qshell.exe'))).toBe(true);
+  //   } else {
+  //     expect(fs.existsSync(path.join(qshellDir, 'bin', 'qshell'))).toBe(true);
+  //   }
+  // }, 100000);
 
   if (IS_WINDOWS) {
     it('Falls back to backup location if first one doesnt contain correct version', async () => {

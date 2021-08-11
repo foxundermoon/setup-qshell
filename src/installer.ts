@@ -80,21 +80,13 @@ async function acquireQshell(version: string): Promise<string> {
 
   const downloadPath: string = await tc.downloadTool(downloadUrl);
 
-  // console.log(`downloadPath: ${downloadPath}`);
-
-  //
   // Extract
-  //
-  // let zipPath = path.join(downloadPath, urlFileName);
-
-  // console.log(`zipPath: ${zipPath}`);
-  const items = await fse.readdir(downloadPath);
-
-  console.log(`downloadPath files: ${items.join('\n')}`);
-  const dPath = path.join(downloadPath, fileName);
-  const extPath: string = await tc.extractTar(dPath, undefined, 'zxvf');
-
+  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxvf');
   console.log(`extPath: ${extPath}`);
+
+  const items = await fse.readdir(extPath);
+
+  console.log(`ext files: ${items.join('\n')}`);
   //
   // cache qshell
   //

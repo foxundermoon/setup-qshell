@@ -10,6 +10,8 @@ jobs:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@master
+      with:
+        ref: ${{ github.ref }}
     # - name: Setup tmate session
     #   uses: mxschmitt/action-tmate@v1
     - name: Set qshell 2.6.2

@@ -20,9 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Setup qshell
-      uses: foxundermoon/setup-qshell@v1
+      uses: foxundermoon/setup-qshell@v5
       with:
-        qshell-version: '2.4.0'
+        version: '2.6.2'
     - name: test qshell
       run: qshell version
 ```

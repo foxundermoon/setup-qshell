@@ -2,13 +2,14 @@ name: 'Setup qiniu qshell environment'
 description: 'Setup a qshell  and add it to the PATH'
 author: 'foxundermoon'
 inputs:
-  qshell-version:
+  version:
     description: 'version to use.  Examples: 2.6.2'
     default: '2.6.2'
+    required: false
 
 runs:
   using: 'node12'
-  main: 'lib/setup-qshell.js'
+  main: 'dist/index.js'
 
 branding:
   icon: 'cloud'  

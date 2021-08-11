@@ -1,11 +1,11 @@
 {
 	"name": "setup-qshell",
-	"version": "2.0.0",
+	"version": "5.0.0",
 	"private": true,
 	"description": "setup node action",
 	"main": "lib/setup-qshell.js",
 	"scripts": {
-		"build": "tsc",
+		"build": "npm i && tsc",
 		"package": "ncc build --source-map --license licenses.txt",
 		"format": "prettier --write **/*.ts",
 		"format-check": "prettier --check **/*.ts",

@@ -76,7 +76,7 @@ async function acquireQshell(version: string): Promise<string> {
     os.platform() === 'win32' ? 'zip' : 'tar.gz'
   }`;
 
-  const extFileName = `qshell${platform === 'win32' ? '.exe' : ''}`;
+  const extFileName = `qshell${os.platform() === 'win32' ? '.exe' : ''}`;
 
   const downloadUrl = `https://github.com/qiniu/qshell/releases/download/v${version}/${fileName}`;
 
@@ -91,18 +91,13 @@ async function acquireQshell(version: string): Promise<string> {
 
   const items = await fse.readdir(extPath);
 
-  console.log(`ext files: ${items.join('\n')}`);
+  // console.log(`ext files: ${items.join('\n')}`);
   //
   // cache qshell
   //
   const oldPath = path.join(extPath, extFileName);
 
-  const cacheRst = await tc.cacheFile(
-    oldPath,
-    `qshell${arch === 'win32' ? '.exe' : ''}`,
-    'qshell',
-    version
-  );
+  const cacheRst = await tc.cacheFile(oldPath, extFileName, 'qshell', version);
   // console.log(`cacheRst: ${cacheRst}`);
   return cacheRst;
 }

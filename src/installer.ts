@@ -81,7 +81,7 @@ async function acquireQshell(version: string): Promise<string> {
   const downloadPath: string = await tc.downloadTool(downloadUrl);
 
   // Extract
-  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxvf');
+  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxv');
   console.log(`extPath: ${extPath}`);
 
   const items = await fse.readdir(extPath);

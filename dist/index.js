@@ -95,7 +95,7 @@ async function acquireQshell(version) {
     const downloadUrl = `https://github.com/qiniu/qshell/releases/download/v${version}/${fileName}`;
     const downloadPath = await tc.downloadTool(downloadUrl);
     // Extract
-    const extPath = await tc.extractTar(downloadPath, undefined, 'zxvf');
+    const extPath = await tc.extractTar(downloadPath, undefined, 'zxv');
     console.log(`extPath: ${extPath}`);
     const items = await fs_1.promises.readdir(extPath);
     console.log(`ext files: ${items.join('\n')}`);

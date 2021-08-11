@@ -66,7 +66,7 @@ describe('installer tests', () => {
     }, 100000);
   }
 
-  it('Throws if no location contains correct node version', async () => {
+  it('Throws if no location contains correct qshell version', async () => {
     let thrown = false;
     try {
       await installer.getQshell('1000');
@@ -76,7 +76,7 @@ describe('installer tests', () => {
     expect(thrown).toBe(true);
   });
 
-  it('Uses version of node installed in cache', async () => {
+  it('Uses version of qshell installed in cache', async () => {
     const nodeDir: string = path.join(toolDir, 'qshell', '2.6.2', os.arch());
     await io.mkdirP(nodeDir);
     fs.writeFileSync(`${nodeDir}.complete`, 'hello');

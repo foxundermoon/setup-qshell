@@ -32,7 +32,7 @@ const core = __importStar(__nccwpck_require__(186));
 const tc = __importStar(__nccwpck_require__(784));
 const os = __importStar(__nccwpck_require__(87));
 const path = __importStar(__nccwpck_require__(622));
-// import {promises as fse} from 'fs';
+const fs_1 = __nccwpck_require__(747);
 let tempDirectory = process.env['RUNNER_TEMPDIRECTORY'] || '';
 if (!tempDirectory) {
     let baseLocation;
@@ -100,19 +100,15 @@ async function acquireQshell(version) {
     //
     // let zipPath = path.join(downloadPath, urlFileName);
     // console.log(`zipPath: ${zipPath}`);
-    // const items = await fse.readdir(downloadPath);
-    // console.log(`downloadPath files: ${items.join('\n')}`);
-    const extPath = await tc.extractTar(downloadPath, undefined, 'zxvf');
-    // console.log(`extPath: ${extPath}`);
+    const items = await fs_1.promises.readdir(downloadPath);
+    console.log(`downloadPath files: ${items.join('\n')}`);
+    const dPath = path.join(downloadPath, fileName);
+    const extPath = await tc.extractTar(dPath, undefined, 'zxvf');
+    console.log(`extPath: ${extPath}`);
     //
     // cache qshell
     //
     const oldPath = path.join(extPath, extFileName);
-    // console.log(`oldPath: ${oldPath}`);
-    // let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
-    // await fse.rename(oldPath, newPath);
-    // const unzipFiles = await fse.readdir(extPath);
-    // console.log(`unzipFiles: ${unzipFiles.join('\n')}`);
     const cacheRst = await tc.cacheFile(oldPath, `qshell${arch === 'win32' ? '.exe' : ''}`, 'qshell', version);
     // console.log(`cacheRst: ${cacheRst}`);
     return cacheRst;

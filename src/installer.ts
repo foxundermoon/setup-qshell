@@ -3,7 +3,7 @@ import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
 import * as os from 'os';
 import * as path from 'path';
-// import {promises as fse} from 'fs';
+import {promises as fse} from 'fs';
 
 let tempDirectory = process.env['RUNNER_TEMPDIRECTORY'] || '';
 
@@ -88,23 +88,18 @@ async function acquireQshell(version: string): Promise<string> {
   // let zipPath = path.join(downloadPath, urlFileName);
 
   // console.log(`zipPath: ${zipPath}`);
-  // const items = await fse.readdir(downloadPath);
+  const items = await fse.readdir(downloadPath);
 
-  // console.log(`downloadPath files: ${items.join('\n')}`);
-  const extPath: string = await tc.extractTar(downloadPath, undefined, 'zxvf');
+  console.log(`downloadPath files: ${items.join('\n')}`);
+  const dPath = path.join(downloadPath, fileName);
+  const extPath: string = await tc.extractTar(dPath, undefined, 'zxvf');
 
-  // console.log(`extPath: ${extPath}`);
+  console.log(`extPath: ${extPath}`);
   //
   // cache qshell
   //
   const oldPath = path.join(extPath, extFileName);
-  // console.log(`oldPath: ${oldPath}`);
-  // let newPath = path.join(extPath, `qshell${osPlat == 'win32' ? '.exe' : ''}`);
-  // await fse.rename(oldPath, newPath);
 
-  // const unzipFiles = await fse.readdir(extPath);
-
-  // console.log(`unzipFiles: ${unzipFiles.join('\n')}`);
   const cacheRst = await tc.cacheFile(
     oldPath,
     `qshell${arch === 'win32' ? '.exe' : ''}`,

@@ -37,7 +37,7 @@
 		"@typescript-eslint/eslint-plugin": "4.33.0",
 		"@typescript-eslint/parser": "4.33.0",
 		"@vercel/ncc": "0.30.0",
-		"eslint": "8.0.0",
+		"eslint": "8.57.0",
 		"eslint-plugin-github": "4.1.5",
 		"eslint-plugin-jest": "24.7.0",
 		"husky": "2.7.0",
